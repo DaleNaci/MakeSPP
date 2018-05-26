@@ -225,3 +225,21 @@ function init() {
 function stop() {
     going = false;
 }
+
+
+function loadQuestion(i) {
+    let questions = data['questions'];
+    console.log(questions);
+    document.getElementById("question").innerHTML = questions[i].question;
+    
+    document.getElementById("A").innerHTML = questions[i].options["A"];
+    document.getElementById("B").innerHTML = questions[i].options["B"];
+    document.getElementById("C").innerHTML = questions[i].options["C"];
+    document.getElementById("D").innerHTML = questions[i].options["D"];
+}
+
+firebase.database().ref().once("value", snap => {
+    data = snap.val();
+    console.log(data);
+    loadQuestion(1);
+})
