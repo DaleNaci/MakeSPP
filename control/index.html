@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MakeSPP</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id = "sign-in">
+            <button class='btn' id = "in-sign" type="button" onclick = "setBackgroundColor()">Sign In</button>
+        </div>
+        <div id = "answer" class="hide">
+            <button class='btn' id="A" type="button" onclick = "checkAnsA();">A</button>
+            <button class='btn' id="B" type="button" onclick = "checkAnsB();">B</button>
+            <button class='btn' id="C" type="button" onclick = "checkAnsC();">C</button>
+            <button class='btn' id="D" type="button" onclick = "checkAnsD();">D</button>
+        </div>
+        <div id = "correct" class="hide" style="background-color: green;">
+            <h1 style = "text-align: center;">CORRECT</h1>
+        </div>
+        <div id = "wrong" class="hide" style="background-color: red;">
+            <h1 style = "text-align: center;">WRONG</h1>
+        </div>
+        <div id = "controller" class="hide">
+            <div>
+                <button class='btn' id = "up" type = "button" onmousedown="setUp()" onmouseup="setReleaseUp()">UP</button>
+                <button class='btn' id = "down" type = "button" onmousedown="setDown()" onmouseup ="setReleaseDown()">DOWN</button>
+                <button class='btn' id = "left" type = "button" onmousedown="setLeft()" onmouseup="setReleaseLeft()">LEFT</button>
+                <button class='btn' id = "right" type = "button" onmousedown="setRight()" onmouseup="setReleaseRight()">RIGHT</button>
+            </div>
+            <div>
+                <button class='btn' id = "attack" type = "button" onmousedown="setAttacking()" onmouseup="setAttacking()">ATTACK</button>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyCkGc9WYGQADhMVvrPzLQIMIJeUrfAZB_8",
+            authDomain: "makespp-648bb.firebaseapp.com",
+            databaseURL: "https://makespp-648bb.firebaseio.com",
+            projectId: "makespp-648bb",
+            storageBucket: "makespp-648bb.appspot.com",
+            messagingSenderId: "1037090689130"
+          };
+          firebase.initializeApp(config);
+        </script>
+        <script src="index.js"></script>
+        <script src="signin.js"></script>
+    </body>
+</html>
+
