@@ -1,10 +1,10 @@
 var config = {
-    apiKey: "AIzaSyAAmdIbaOZWJJf-vXSPaCSPGXscl72T6cM",
-    authDomain: "fir-99747.firebaseapp.com",
-    databaseURL: "https://fir-99747.firebaseio.com",
-    projectId: "fir-99747",
-    storageBucket: "fir-99747.appspot.com",
-    messagingSenderId: "156319699888"
+    apiKey: "AIzaSyCkGc9WYGQADhMVvrPzLQIMIJeUrfAZB_8",
+    authDomain: "makespp-648bb.firebaseapp.com",
+    databaseURL: "https://makespp-648bb.firebaseio.com",
+    projectId: "makespp-648bb",
+    storageBucket: "makespp-648bb.appspot.com",
+    messagingSenderId: "1037090689130"
 };
 firebase.initializeApp(config);
 
