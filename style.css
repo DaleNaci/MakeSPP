@@ -2,7 +2,8 @@
 .btn-purple { 
   color: #ffffff; 
   background-color: #611BBD; 
-  border-color: #130269; 
+  border-color: #130269;
+  margin-top: 4px;
 } 
  
 .btn-purple:hover, 
@@ -49,7 +50,8 @@ fieldset[disabled] .btn-purple.active {
 .btn-blue { 
   color: #ffffff; 
   background-color: #3751B8; 
-  border-color: #3751B8; 
+  border-color: #3751B8;
+  margin-top: 4px;
 } 
  
 .btn-blue:hover, 
