@@ -1,3 +1,4 @@
+// Setup
 var config = {
     apiKey: "AIzaSyCkGc9WYGQADhMVvrPzLQIMIJeUrfAZB_8",
     authDomain: "makespp-648bb.firebaseapp.com",
@@ -8,9 +9,10 @@ var config = {
 };
 firebase.initializeApp(config);
 
-// Setup
 const canvas = document.querySelector('canvas');
 const c = canvas.getContext('2d');
+let data = {};
+let objs = [];
 
 if(innerHeight>innerWidth) {
     canvas.width = innerWidth;	
@@ -20,23 +22,30 @@ if(innerHeight>innerWidth) {
     canvas.height = innerHeight;
 }
 
-let data = {};
-let objs = {};
-
 firebase.database().ref().on("value", snap => {
     data = snap.val();
 });
 
+// Functions
+
+function isIn(arr, target) {
+    for(let i in arr)
+        if(arr[i]==target)
+           return true;
+    return false;
+}
+
 // "Classes"
 
-function Character(x, y, color, id) {
+function Character(x, y, color, attacker, id) {
     this.x = x;
     this.y = y;
-    this.width = 2;
-    this.height = 2;
+    this.width = 4;
+    this.height = 4;
     this.direction = 0;
     this.lastDirection = 3;
     this.color = color;
+    this.attacker = attacker;
     this.id = id;
     
     this.attack = function() {
@@ -47,52 +56,11 @@ function Character(x, y, color, id) {
     }
     
     this.damage = function() {
-        this.health-=10;
-        let spl = this.color.split(',');
-        spl[3] = (this.health/100.0).toString()+")";
-        this.color = "";
-        for(let x=0;x<spl.length-1;x++) {
-            this.color+=spl[x]+",";
-        }
-        this.color+=spl[spl.length-1];
-    }
-    
-    this.hurt = function() {
-        this.health--;
-        let spl = this.color.split(',');
-        spl[3] = (this.health/100.0).toString()+")";
-        this.color = "";
-        for(let x=0;x<spl.length-1;x++) {
-            this.color+=spl[x]+",";
-        }
-        this.color+=spl[spl.length-1];
+        firebase.database().ref("games/0/"+this.id+"/points")
     }
     
     this.stop = function() {
         this.direction = 0;
-    }
-    
-    this.build = function() {
-        
-        switch(this.direction) {
-                
-            case 1:
-                objs.push(new Block(this,this.x-this.width,this.y));
-                break;
-            case 2:
-                objs.push(new Block(this,this.x,this.y-this.height));
-                break;
-            case 3:
-                objs.push(new Block(this,this.x+this.width,this.y));
-                break;
-            case 4:
-                objs.push(new Block(this,this.x,this.y+this.height));
-                break;
-                
-        }
-        
-        this.stop();
-        
     }
     
     this.move = function() {
@@ -112,18 +80,9 @@ function Character(x, y, color, id) {
                 break;
                 
         }
-    }
-    
-    this.big = function() {
-        this.width+=2;
-        this.height+=2;
-    }
-    
+    }    
     
     this.update = function() {
-        
-        if(this.health<=0)
-            return false;
         
         this.move();
         
@@ -136,7 +95,7 @@ function Character(x, y, color, id) {
                     this.damage();
                 }
                 else if(obj instanceof Character)
-                    this.hurt();
+                    this.damage();
                 else if(obj instanceof Block) {
                     this.direction = (this.direction+1)%4+1;
                     this.move()
@@ -157,16 +116,7 @@ function Character(x, y, color, id) {
        
          c.fillStyle = this.color;
         c.fillRect(this.x*canvas.width/100,this.y*canvas.height/100,this.width*canvas.width/100,this.height*canvas.height/100);
-    }
-    
-    this.getInfo = function() {
-        return {
-            x: this.x,
-            y: this.y,
-            health: this.health,
-            type: "Character"
-        };
-    }
+    };
 }
 
 function Bullet(sender, x, y, direction) {
@@ -175,8 +125,8 @@ function Bullet(sender, x, y, direction) {
     this.color = sender.color;
     this.x = x;
     this.y = y;
-    this.width = 1;
-    this.height = 1;
+    this.width = 2;
+    this.height = 2;
     this.direction = direction;
     
     this.update = function() {
@@ -204,8 +154,56 @@ function Bullet(sender, x, y, direction) {
     this.draw = function() {
        
         c.fillStyle = this.color;
-        c.fillRect(this.x*canvas.width/100,this.y*canvas.height/100,canvas.width/100,canvas.height/100);
+        c.fillRect(this.x*canvas.width/100,this.y*canvas.height/100,this.width*canvas.width/100,this.height*canvas.height/100);
 
     }
     
 }
+
+function animate() {
+    requestAnimationFrame(animate);
+    c.clearRect(0, 0, canvas.width, canvas.height);
+    
+    let ids = [];
+    
+    for(let obj in objs)
+        if(objs[obj] instanceof Character) {
+            ids.push(objs[obj].id);
+        }
+
+    if(Object.keys(data).length != 0)
+        for(let x in data.games[0])
+            if(!isIn(ids, x)) {
+                objs.push(new Character(Math.random()*100, Math.random()*100, data.games[0][x].color, true, x));
+            }
+    
+    for(let obj in objs)
+        if(!(objs[obj] instanceof Character)) {
+            
+            if(objs[obj] instanceof Block) {
+                
+                if(!objs[obj].update()) {
+                    objs.splice(obj,1);
+                    continue;
+                }
+            }
+            else {
+                objs[obj].update();
+            }
+            if(objs[obj].x>100 || objs[obj].x<0 || objs[obj].y>100 || objs[obj].y<0)
+                objs.splice(obj, 1);
+        }
+    
+    
+    
+    
+    for(let obj in objs)
+        if(objs[obj] instanceof Character) {
+
+            if(objs[obj].x>100 || objs[obj].x<0 || objs[obj].y>100 || objs[obj].y<0)
+            objs[objs].damage();
+    }
+                
+}
+
+animate();
