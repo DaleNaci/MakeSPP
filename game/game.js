@@ -102,7 +102,7 @@ function Character(x, y, color, attacker, id) {
 
         }
         
-        if(data.games[0][this.id].attacking && this.count%10==0)
+        if(data.games[0][this.id].attacking && this.count%10==0 && this.attacker)
             this.attack();
         
         if(this.direction!=0)
@@ -178,7 +178,8 @@ function Bullet(sender, x, y, direction) {
 }
 
 function animate() {
-    requestAnimationFrame(animate);
+    if(going)
+        requestAnimationFrame(animate);
     c.clearRect(0, 0, canvas.width, canvas.height);
     
     let ids = [];
@@ -191,7 +192,7 @@ function animate() {
     if(Object.keys(data).length != 0)
         for(let x in data.games[0])
             if(!isIn(ids, x)) {
-                objs.push(new Character(Math.random()*100, Math.random()*100, data.games[0][x].color, true, x));
+                objs.push(new Character(Math.random()*100, Math.random()*100, data.games[0][x].color, data.games[0][x].status==="attacker", x));
             }
     
     for(let obj in objs)
@@ -214,5 +215,13 @@ function animate() {
     }
                 
 }
+let going = false;
+function init() {
+    going = true;
+    animate();
+    objs = [];
+}
 
-animate();
+function stop() {
+    going = false;
+}

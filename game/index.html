@@ -13,15 +13,34 @@
 
         
         <div class="content">
-        
-            <canvas id="game-container"></canvas>
             
+            <div id="questions">
+                
+                <h1>Question?</h1>
+                <ul>
+                    <li>A: <span>answers A</span></li>   
+                    <li>B: <span>answers B</span></li>   
+                    <li>C: <span>answers C</span></li>   
+                    <li>D: <span>answers D</span></li>   
+                </ul>
+                
+            </div>
+            
+            <div id="game" class="hide">
+                <canvas onclick="init()" id="game-container"></canvas>
+            </div>
+            
+            <div id="leaderboard" class="hide">
+                
+            </div>
+                
         </div>    
     
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="https://cdn.rawgit.com/alexgibson/shake.js/master/shake.js"></script>
         <script src="https://www.gstatic.com/firebasejs/4.13.0/firebase.js"></script>
         <script src='game.js' type="text/javascript"></script>
+        <script src='question.js' type="text/javascript"></script>
         
     </body>
     

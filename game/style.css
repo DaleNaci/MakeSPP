@@ -16,3 +16,15 @@
 #game-container {
     background-color: #c7c7c7;
 }
+
+#questions {
+    background-color: white;
+/*
+    width: 50vw;
+    height: 50vh;
+*/
+}
+
+.hide {
+    display: none;
+}
