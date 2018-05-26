@@ -1,0 +1,7 @@
+# colors.txt
+# The example colors. This file is mainly used as an in-between for Rishav and Dale.
+
+var colors = ["#FF0000", "#FF7F00", "#FFFF00", "#00FF00", "#0000FF", "#4B0082", "#000000", "#006400", "#8B4513", "#DAA520"];
+var rand = myArray[Math.floor(Math.random() * colors.length)];
+
+
