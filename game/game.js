@@ -180,6 +180,9 @@ function Bullet(sender, x, y, direction) {
 function animate() {
     if(going)
         requestAnimationFrame(animate);
+    co++;
+    if(co>1800)
+        stop();
     c.clearRect(0, 0, canvas.width, canvas.height);
     
     let ids = [];
@@ -218,18 +221,38 @@ function animate() {
 let going = false;
 function init() {
     going = true;
-    animate();
+    co = 0;
     objs = [];
+    firebase.database().ref().child("part").set(1);
+    $("#questions").addClass("hide");
+    $("#game").removeClass("hide");
+    animate();
 }
 
 function stop() {
     going = false;
+    reset();
+    $("#questions").addClass("hide");
+    $("#game").removeClass("hide");
+    firebase.database().ref().child("part").set(0);
+    if(cq<4)
+        moveUp()
 }
 
+function reset() {
+    for(let x in data.games[0])
+        firebase.database().ref("games/0/"+x+"/answer").set("0");
+}
+
+function everyoneAnswered() {
+    for(let x in data.games[0])
+        if(data.games[0][x].answer=="0")
+            return false;
+    return true;
+}
 
 function loadQuestion(i) {
     let questions = data['questions'];
-    console.log(questions);
     document.getElementById("question").innerHTML = questions[i].question;
     
     document.getElementById("A").innerHTML = questions[i].options["A"];
@@ -238,8 +261,25 @@ function loadQuestion(i) {
     document.getElementById("D").innerHTML = questions[i].options["D"];
 }
 
+let cq = -1;
+let co = 0;
+firebase.database().ref().child("cq").set(cq);
+
 firebase.database().ref().once("value", snap => {
     data = snap.val();
-    console.log(data);
-    loadQuestion(1);
-})
+    start();
+});
+
+function moveUp() {
+    cq++;
+    loadQuestion(cq);
+    firebase.database().ref().child("cq").set(cq);
+//    while(!everyoneAnswered())
+//        console.log("waiting");
+    init();
+    
+}
+
+function start() {
+    moveUp()
+}
