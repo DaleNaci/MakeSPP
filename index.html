@@ -1,22 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<meta charset="UTF-8">
-	<title>MakeSPP</title>
-    
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css" type="text/css">
-
-</head>
-<body>
-
-	<div>
-		<center>
-			<a href="control/index.html" class="btn btn-purple" type="submit">Game Master</a><br>
-
-			<a href="game/index.html" class="btn btn-blue" type="submit">Player</a>
-		</center>
-	</div>
-    
-</body>
+    <head>
+        <title>MakeSPP</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div id = "sign-in" style = "display: none;">
+            <button class='btn' id = "in-sign" type="button">Sign In</button>
+        </div>
+        <div id = "answer" style = "display: none;">
+            <button class='btn' id="A" type="button">A</button>
+            <button class='btn' id="B" type="button">B</button>
+            <button class='btn' id="C" type="button">C</button>
+            <button class='btn' id="D" type="button">D</button>
+        </div>
+        <div id = "controller">
+            <div>
+                <button class='btn' id = "up" type = "button" onclick="moveUp()">UP</button>
+                <button class='btn' id = "down" type = "button" onclick="moveDown()">DOWN</button>
+                <button class='btn' id = "left" type = "button" onclick="moveLeft()">LEFT</button>
+                <button class='btn' id = "right" type = "button" onclick="moveRight()">RIGHT</button>
+            </div>
+            <div>
+                <button class='btn' id = "attack" type = "button" onclick="attack()">ATTACK</button>
+            </div>
+        </div>
+        <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+        <script>
+          // Initialize Firebase
+          var config = {
+            apiKey: "AIzaSyCkGc9WYGQADhMVvrPzLQIMIJeUrfAZB_8",
+            authDomain: "makespp-648bb.firebaseapp.com",
+            databaseURL: "https://makespp-648bb.firebaseio.com",
+            projectId: "makespp-648bb",
+            storageBucket: "makespp-648bb.appspot.com",
+            messagingSenderId: "1037090689130"
+          };
+          firebase.initializeApp(config);
+        </script>
+    </body>
 </html>
