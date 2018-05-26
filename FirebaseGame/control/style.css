@@ -1,0 +1,77 @@
+#login {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    font-size: 300%;
+    border-radius: 0;
+}
+
+#controller {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+
+.button {
+    position: absolute;
+    background-color: blue;
+    font-size: 300%;
+    color: white;
+    border-color: black;
+    border-style: solid;
+    text-align: center;
+
+}
+
+#up, #down {
+    width: 48%;
+    left: 26%;
+    height: 13%;
+    padding-top: 12%;
+}
+
+#left, #right {
+    height: 50%;
+    width: 25%;
+    top: 25%;
+}
+
+#right {
+    right: 0;
+}
+
+#down {
+    bottom: 0;
+}
+
+#build, #shoot {
+    background-color: red;
+    width: 25%;
+    height: 25%;
+    bottom: 0
+}
+
+#shoot {
+    right: 0
+}
+
+#heal {
+    left: 0;
+    top: -30%;
+    width: 25%;
+    height: 25%;
+    background-color: red;
+}
+
+#big {
+    right: 0;
+    top: -30%;
+    width: 25%;
+    height: 25%;
+    background-color: red;
+}

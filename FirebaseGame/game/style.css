@@ -1,0 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('fire.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#game-container {
+    background-color: #c7c7c7;
+}
