@@ -1,3 +1,16 @@
+var config = {
+    apiKey: "AIzaSyCkGc9WYGQADhMVvrPzLQIMIJeUrfAZB_8",
+    authDomain: "makespp-648bb.firebaseapp.com",
+    databaseURL: "https://makespp-648bb.firebaseio.com",
+    projectId: "makespp-648bb",
+    storageBucket: "makespp-648bb.appspot.com",
+    messagingSenderId: "1037090689130"
+};
+firebase.initializeApp(config);
+let provider = new firebase.auth.GoogleAuthProvider();
+let data;
+
+
 var signIn = document.getElementById("sign-in");
 
 var upBool = false;
@@ -30,6 +43,7 @@ function setBackground(){
 }
 
 function checkAnsA(){
+    firebase.database().ref("games/0/"+firebase.auth().currentUser.uid+"/answer").set("A");
     var answerRef = firebase.database().ref();
     firebaseUserRef.on('value', snap => {
         var ans = snap.child("cq").val();
@@ -53,11 +67,14 @@ function checkAnsA(){
     });
 }
 function checkAnsB(){
+        firebase.database().ref("games/0/"+firebase.auth().currentUser.uid+"/answer").set("B");
+
     var answerRef = firebase.database().ref();
     firebaseUserRef.on('value', snap => {
         var ans = snap.child("cq").val();
         
         if(ans === "B") {
+            
             var firebaseUserRef = firebase.database().ref("games/0/"+firebase.auth().currentUser.uid);
 
             firebaseUserRef.on('value', snap => {
@@ -72,6 +89,8 @@ function checkAnsB(){
         }
     });}
 function checkAnsC(){
+        firebase.database().ref("games/0/"+firebase.auth().currentUser.uid+"/answer").set("C");
+
     var answerRef = firebase.database().ref();
     firebaseUserRef.on('value', snap => {
         var ans = snap.child("cq").val();
@@ -92,6 +111,8 @@ function checkAnsC(){
     });
 }
 function checkAnsD(){
+        firebase.database().ref("games/0/"+firebase.auth().currentUser.uid+"/answer").set("D");
+
     var answerRef = firebase.database().ref();
     firebaseUserRef.on('value', snap => {
         var ans = snap.child("cq").val();
