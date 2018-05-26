@@ -47,16 +47,17 @@ function Character(x, y, color, attacker, id) {
     this.color = color;
     this.attacker = attacker;
     this.id = id;
+    this.count = 0;
     
     this.attack = function() {
         if(this.direction!=0)
-            objs.push(new Bullet(this, this.x+.5,this.y+.5,this.direction));
+            objs.push(new Bullet(this, this.x+1,this.y+1,this.direction));
         else
-            objs.push(new Bullet(this, this.x+.5,this.y+.5,this.lastDirection));
+            objs.push(new Bullet(this, this.x+1,this.y+1,this.lastDirection));
     }
     
     this.damage = function() {
-        firebase.database().ref("games/0/"+this.id+"/points")
+        firebase.database().ref("games/0/"+this.id+"/points").set(data.games[0][this.id].points-5);
     }
     
     this.stop = function() {
@@ -84,6 +85,7 @@ function Character(x, y, color, attacker, id) {
     
     this.update = function() {
         
+        this.count++;
         this.move();
         
         for(indexe in objs) {
@@ -96,17 +98,17 @@ function Character(x, y, color, attacker, id) {
                 }
                 else if(obj instanceof Character)
                     this.damage();
-                else if(obj instanceof Block) {
-                    this.direction = (this.direction+1)%4+1;
-                    this.move()
-                    this.stop();
-                }
             }
 
         }
         
+        if(data.games[0][this.id].attacking && this.count%10==0)
+            this.attack();
+        
         if(this.direction!=0)
             this.lastDirection = this.direction;
+        
+        switch(firebase)
         
         this.draw();
         return true;
@@ -179,17 +181,9 @@ function animate() {
     
     for(let obj in objs)
         if(!(objs[obj] instanceof Character)) {
+
+             objs[obj].update();
             
-            if(objs[obj] instanceof Block) {
-                
-                if(!objs[obj].update()) {
-                    objs.splice(obj,1);
-                    continue;
-                }
-            }
-            else {
-                objs[obj].update();
-            }
             if(objs[obj].x>100 || objs[obj].x<0 || objs[obj].y>100 || objs[obj].y<0)
                 objs.splice(obj, 1);
         }
@@ -199,9 +193,9 @@ function animate() {
     
     for(let obj in objs)
         if(objs[obj] instanceof Character) {
-
+            objs[obj].update();
             if(objs[obj].x>100 || objs[obj].x<0 || objs[obj].y>100 || objs[obj].y<0)
-            objs[objs].damage();
+                objs[objs].damage();
     }
                 
 }
