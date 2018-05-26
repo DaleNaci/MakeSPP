@@ -14,14 +14,14 @@
         
         <div class="content">
             
-            <div id="questions" class="hide">
+            <div id="questions">
                 
-                <h1>Question?</h1>
+                <h1 id="question">Question?</h1>
                 <ul>
-                    <li>A: <span>answers A</span></li>   
-                    <li>B: <span>answers B</span></li>   
-                    <li>C: <span>answers C</span></li>   
-                    <li>D: <span>answers D</span></li>   
+                    <li>A: <span id="A">answers A</span></li>   
+                    <li>B: <span id="B">answers B</span></li>   
+                    <li>C: <span id="C">answers C</span></li>   
+                    <li>D: <span id="D">answers D</span></li>   
                 </ul>
                 
             </div>
@@ -30,7 +30,7 @@
                 <canvas onclick="init()" id="game-container"></canvas>
             </div>
             
-            <div id="leaderboard">
+            <div id="leaderboard" class="hide">
                 <h1>Leaderboard</h1>
                 <table>
                     <thead>
