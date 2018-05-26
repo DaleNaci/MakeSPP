@@ -68,16 +68,16 @@ function Character(x, y, color, attacker, id) {
         switch(this.direction) {
         
             case 1:
-                this.x--;
+                this.x-=0.5;
                 break;
             case 2:
-                this.y--;
+                this.y-=0.5;
                 break;
             case 3:
-                this.x++;
+                this.x+=0.5;
                 break;
             case 4:
-                this.y++;
+                this.y+=0.5;
                 break;
                 
         }
@@ -108,7 +108,22 @@ function Character(x, y, color, attacker, id) {
         if(this.direction!=0)
             this.lastDirection = this.direction;
         
-        switch(firebase)
+        switch(data.games[0][this.id].direction) {
+            case "UP":
+                this.direction = 2;
+                break;
+            case "DOWN":
+                this.direction = 4;
+                break;
+            case "RIGHT":
+                this.direction = 3;
+                break;
+            case "LEFT":
+                this.direction = 1;
+                break;
+            default:
+                this.stop();
+        }
         
         this.draw();
         return true;
@@ -195,7 +210,7 @@ function animate() {
         if(objs[obj] instanceof Character) {
             objs[obj].update();
             if(objs[obj].x>100 || objs[obj].x<0 || objs[obj].y>100 || objs[obj].y<0)
-                objs[objs].damage();
+                objs[obj].damage();
     }
                 
 }
