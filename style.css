@@ -1,3 +1,4 @@
+
 /* PURPLE BUTTON */
 .btn-purple { 
   color: #ffffff; 
@@ -94,3 +95,82 @@ fieldset[disabled] .btn-blue.active {
   background-color: #ffffff; 
 }
 
+
+button {
+    position: absolute;
+    width: 50vw;
+    height: 50vh;
+    font-size: 200%;
+}
+
+#A {
+    top: 0;
+    left: 0;
+    background-color: red;
+}
+
+#B {
+    top: 0;
+    right: 0;
+    background-color: deepskyblue;
+}
+
+#C {
+    bottom: 0;
+    left: 0;
+    background-color: yellow;
+}
+
+#D {
+    bottom: 0;
+    right: 0;
+    background-color: limegreen;
+}
+
+#in-sign {
+    left: 25%;
+    top: 25%;
+    background-color: #ad45c6;
+}
+
+#up {
+    width: 33vw;
+    height: 16.5vh;
+    top: 0;
+    left: 33vw;
+}
+
+#down {
+    width: 33vw;
+    height: 16.5vh;
+    top: 33vh;
+    left: 33vw;
+}
+
+#left {
+    width: 33vw;
+    height: 16.5vh;
+    top: 16.5vh;
+    left: 0;
+}
+
+#right {
+    width: 33vw;
+    height: 16.5vh;
+    top: 16.5vh;
+    left: 66vw;
+}
+
+#attack {
+    width: 100vw;
+    height: 50vh;
+    top: 50vh;
+    left: 0;
+}
+
+html, body {
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+>>>>>>> bc338f1f596a9b2c88ba9d0e9aeaedce81e02d9e
